@@ -1,13 +1,54 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + Vue</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+
+  <!-- ✅ 网站图标 (带说明) -->
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" title="App logo" aria-label="App logo" />
+
+  <!-- ✅ 响应式设计 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✅ 可访问标题 -->
+  <title>Community Geo Location Map Application</title>
+
+  <!-- ✅ 颜色主题提示（视觉辅助） -->
+  <meta name="theme-color" content="#2563eb" />
+
+  <!-- ✅ 描述网站内容（读屏工具识别） -->
+  <meta name="description" content="An accessible community geo-location web app using Google Maps, supporting keyboard navigation and screen reader accessibility." />
+
+  <!-- ✅ 无障碍跳转样式 -->
+  <style>
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: #2563eb;
+      color: white;
+      padding: 8px;
+      z-index: 100;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: top 0.3s;
+    }
+
+    .skip-link:focus {
+      top: 8px;
+      outline: 3px solid #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ✅ 跳过导航的快捷键 (WCAG 2.1 要求之一) -->
+  <a href="#app" class="skip-link">Skip to main content</a>
+
+  <!-- ✅ 主内容区域 -->
+  <main id="app" role="main" aria-label="Main application area"></main>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+
 </html>

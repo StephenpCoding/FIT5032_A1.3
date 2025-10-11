@@ -38,6 +38,10 @@ async function logout() {
         <router-link to="/admin" class="hover:underline">Admin</router-link>
         <router-link to="/send-email" class="hover:underline">Send Email</router-link>
         <router-link to="/activity" class="hover:underline">Activity</router-link>
+        <router-link to="/map" class="hover:underline">Map</router-link>
+        <router-link to="/booking" class="hover:underline">Booking</router-link>
+        <router-link to="/chart" class="hover:underline">Charts</router-link>
+
       </div>
 
       <!-- 右侧显示登录状态 -->

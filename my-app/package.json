@@ -9,10 +9,22 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fullcalendar/core": "^6.1.19",
+    "@fullcalendar/daygrid": "^6.1.19",
+    "@fullcalendar/interaction": "^6.1.19",
+    "@fullcalendar/vue3": "^6.1.19",
+    "@googlemaps/js-api-loader": "^2.0.1",
+    "@primevue/themes": "^4.4.1",
+    "axios": "^1.12.2",
+    "chart.js": "^4.5.0",
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "firebase": "^12.3.0",
+    "leaflet": "^1.9.4",
     "pinia": "^3.0.3",
+    "primeflex": "^4.0.0",
+    "primeicons": "^7.0.0",
+    "primevue": "^4.4.1",
     "resend": "^6.1.2",
     "vue": "^3.5.18",
     "vue-router": "^4.5.1"
