@@ -53,7 +53,7 @@ import interactionPlugin from "@fullcalendar/interaction";
 
 const selectedPlace = ref("");
 const bookings = ref([]);
-const placeOptions = ref([]);  // 将改为动态地点列表
+const placeOptions = ref([]); // 将改为动态地点列表
 
 // ✅ 初始化 FullCalendar 配置
 const calendarOptions = ref({

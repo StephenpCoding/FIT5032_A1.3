@@ -50,7 +50,11 @@
     <div v-if="routes.length > 0" class="mt-4 p-4 bg-white rounded shadow">
       <h2 class="font-bold mb-2">📍 Distance Information:</h2>
       <div class="space-y-2">
-        <div v-for="(route, index) in routes" :key="index" class="flex items-center">
+        <div
+          v-for="(route, index) in routes"
+          :key="index"
+          class="flex items-center"
+        >
           <span class="text-blue-600 mr-2">🎯</span>
           <span>{{ route.name }}:</span>
           <span class="ml-2 text-gray-600">{{ route.distance }}</span>
@@ -157,7 +161,7 @@ function handleGeoError(err) {
   alert("Failed to access your location. Defaulting to Melbourne city center.");
 }
 
-  // ✅ 搜索地点并显示 marker
+// ✅ 搜索地点并显示 marker
 async function searchPlaces() {
   if (!query.value) return alert("Please enter a search keyword!");
   if (!userPos) return alert("Please enable location first!");
@@ -178,11 +182,13 @@ async function searchPlaces() {
   }
 
   // ✅ 更新地点列表并通知 BookingCalendar 组件
-  const placeNames = places.map(place => place.displayName);
+  const placeNames = places.map((place) => place.displayName);
   localStorage.setItem("searchedPlaces", JSON.stringify(placeNames));
-  document.dispatchEvent(new CustomEvent("searchedPlacesUpdated", { 
-    detail: placeNames 
-  }));
+  document.dispatchEvent(
+    new CustomEvent("searchedPlacesUpdated", {
+      detail: placeNames,
+    })
+  );
 
   // 清理旧数据
   markers.forEach((m) => (m.map = null));
@@ -200,7 +206,7 @@ async function searchPlaces() {
         routes.value.push({
           name: place.displayName,
           distance: result.distance,
-          duration: result.duration
+          duration: result.duration,
         });
       }
     } catch (error) {
@@ -215,26 +221,31 @@ async function searchPlaces() {
       title: place.displayName,
     });
 
-    marker.element.setAttribute("aria-label", `Location marker for ${place.displayName}`);
+    marker.element.setAttribute(
+      "aria-label",
+      `Location marker for ${place.displayName}`
+    );
 
     // ✅ 点击 marker → 保存地点名 → 打开日历
     marker.addListener("click", async () => {
       selectedPlace.value = place.displayName;
       localStorage.setItem("selectedPlace", place.displayName); // ⬅️ 保存地点
-      
+
       // 点击时显示到该地点的路线
       const result = await calculateRoute(place.location, place.displayName);
       if (result) {
-        const routeIndex = routes.value.findIndex(r => r.name === place.displayName);
+        const routeIndex = routes.value.findIndex(
+          (r) => r.name === place.displayName
+        );
         if (routeIndex !== -1) {
           routes.value[routeIndex] = {
             name: place.displayName,
             distance: result.distance,
-            duration: result.duration
+            duration: result.duration,
           };
         }
       }
-      
+
       showCalendar.value = true;
     });
 
@@ -283,11 +294,11 @@ async function calculateRoute(destination, placeName) {
           if (placeName === selectedPlace.value) {
             directionsRenderer.setDirections(result);
           }
-          
+
           const route = result.routes[0].legs[0];
           resolve({
             distance: route.distance.text,
-            duration: route.duration.text
+            duration: route.duration.text,
           });
         } else {
           reject(new Error(status));

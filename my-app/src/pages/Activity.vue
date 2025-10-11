@@ -14,7 +14,7 @@
           aria-label="Enter activity name"
           aria-required="true"
         />
-        
+
         <label for="duration" class="sr-only">Activity duration</label>
         <input
           id="duration"
@@ -51,7 +51,11 @@
     </div>
 
     <!-- 搜索栏 -->
-    <div class="mb-4 flex space-x-4" role="search" aria-label="Search activities">
+    <div
+      class="mb-4 flex space-x-4"
+      role="search"
+      aria-label="Search activities"
+    >
       <div class="flex-1">
         <label for="searchQuery" class="sr-only">Search activities</label>
         <input
@@ -66,9 +70,9 @@
       </div>
       <div class="flex-1">
         <label for="searchColumn" class="sr-only">Select search column</label>
-        <select 
+        <select
           id="searchColumn"
-          v-model="searchColumn" 
+          v-model="searchColumn"
           class="border p-2 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
           aria-label="Select which column to search in"
         >
@@ -82,27 +86,36 @@
 
     <!-- 交互式数据表格 -->
     <div class="overflow-x-auto">
-      <table 
+      <table
         class="min-w-full bg-white rounded-lg overflow-hidden"
         role="grid"
         aria-label="Activities table"
       >
         <thead class="bg-gray-100">
           <tr>
-            <th 
+            <th
               class="py-2 px-4 cursor-pointer hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
               @click="sortBy('activity')"
               role="columnheader"
               aria-sort="{{ sortColumn === 'activity' ? (sortDirection === 'asc' ? 'ascending' : 'descending') : 'none' }}"
               tabindex="0"
             >
-              Activity 
-              <span class="sr-only">Sort by activity {{ sortColumn === 'activity' ? (sortDirection === 'asc' ? 'ascending' : 'descending') : '' }}</span>
+              Activity
+              <span class="sr-only"
+                >Sort by activity
+                {{
+                  sortColumn === "activity"
+                    ? sortDirection === "asc"
+                      ? "ascending"
+                      : "descending"
+                    : ""
+                }}</span
+              >
               <span aria-hidden="true" v-if="sortColumn === 'activity'">
-                {{ sortDirection === 'asc' ? '↑' : '↓' }}
+                {{ sortDirection === "asc" ? "↑" : "↓" }}
               </span>
             </th>
-            <th 
+            <th
               class="py-2 px-4 cursor-pointer hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
               @click="sortBy('duration')"
               role="columnheader"
@@ -110,12 +123,21 @@
               tabindex="0"
             >
               Duration (mins)
-              <span class="sr-only">Sort by duration {{ sortColumn === 'duration' ? (sortDirection === 'asc' ? 'ascending' : 'descending') : '' }}</span>
+              <span class="sr-only"
+                >Sort by duration
+                {{
+                  sortColumn === "duration"
+                    ? sortDirection === "asc"
+                      ? "ascending"
+                      : "descending"
+                    : ""
+                }}</span
+              >
               <span aria-hidden="true" v-if="sortColumn === 'duration'">
-                {{ sortDirection === 'asc' ? '↑' : '↓' }}
+                {{ sortDirection === "asc" ? "↑" : "↓" }}
               </span>
             </th>
-            <th 
+            <th
               class="py-2 px-4 cursor-pointer hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
               @click="sortBy('timestamp')"
               role="columnheader"
@@ -123,16 +145,25 @@
               tabindex="0"
             >
               Date/Time
-              <span class="sr-only">Sort by date {{ sortColumn === 'timestamp' ? (sortDirection === 'asc' ? 'ascending' : 'descending') : '' }}</span>
+              <span class="sr-only"
+                >Sort by date
+                {{
+                  sortColumn === "timestamp"
+                    ? sortDirection === "asc"
+                      ? "ascending"
+                      : "descending"
+                    : ""
+                }}</span
+              >
               <span aria-hidden="true" v-if="sortColumn === 'timestamp'">
-                {{ sortDirection === 'asc' ? '↑' : '↓' }}
+                {{ sortDirection === "asc" ? "↑" : "↓" }}
               </span>
             </th>
           </tr>
         </thead>
         <tbody>
-          <tr 
-            v-for="(item, index) in paginatedActivities" 
+          <tr
+            v-for="(item, index) in paginatedActivities"
             :key="index"
             class="border-b hover:bg-gray-50"
             role="row"
@@ -146,12 +177,16 @@
     </div>
 
     <!-- 分页控制 -->
-    <div class="mt-4 flex justify-between items-center" role="navigation" aria-label="Table navigation">
+    <div
+      class="mt-4 flex justify-between items-center"
+      role="navigation"
+      aria-label="Table navigation"
+    >
       <div class="flex items-center space-x-2">
         <label for="pageSize" class="text-sm">Rows per page:</label>
-        <select 
+        <select
           id="pageSize"
-          v-model="pageSize" 
+          v-model="pageSize"
           class="border p-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
           aria-label="Select number of rows per page"
         >
@@ -160,9 +195,13 @@
           <option :value="20">20</option>
         </select>
       </div>
-      <div class="flex items-center space-x-2" role="group" aria-label="Pagination controls">
-        <button 
-          @click="currentPage--" 
+      <div
+        class="flex items-center space-x-2"
+        role="group"
+        aria-label="Pagination controls"
+      >
+        <button
+          @click="currentPage--"
           :disabled="currentPage === 1"
           class="px-3 py-1 border rounded disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
           aria-label="Go to previous page"
@@ -173,8 +212,8 @@
         <div role="status" aria-live="polite" class="text-sm">
           Page {{ currentPage }} of {{ totalPages }}
         </div>
-        <button 
-          @click="currentPage++" 
+        <button
+          @click="currentPage++"
           :disabled="currentPage === totalPages"
           class="px-3 py-1 border rounded disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
           aria-label="Go to next page"
@@ -220,7 +259,7 @@ const filteredActivities = computed(() => {
   // 搜索过滤
   if (searchQuery.value) {
     const query = searchQuery.value.toLowerCase();
-    result = result.filter(item => {
+    result = result.filter((item) => {
       if (searchColumn.value === "all") {
         return (
           item.activity.toLowerCase().includes(query) ||
@@ -364,9 +403,7 @@ function exportCSV() {
   // 5️⃣ 创建并触发下载
   const link = document.createElement("a");
   link.href = url;
-  link.download = `my_activities_${new Date()
-    .toISOString()
-    .slice(0, 10)}.csv`;
+  link.download = `my_activities_${new Date().toISOString().slice(0, 10)}.csv`;
   link.click();
 
   // 6️⃣ 释放对象 URL

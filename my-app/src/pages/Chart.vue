@@ -19,26 +19,26 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue';
-import { auth, db } from '../firebase';
-import { collection, query, orderBy, getDocs } from 'firebase/firestore';
-import Chart from 'chart.js/auto';
+import { ref, onMounted, watch } from "vue";
+import { auth, db } from "../firebase";
+import { collection, query, orderBy, getDocs } from "firebase/firestore";
+import Chart from "chart.js/auto";
 
-const chartType = ref('bar');
+const chartType = ref("bar");
 const chartRef = ref(null);
 let myChart = null;
 
 // 从 Firestore 获取数据
 async function fetchData() {
   if (!auth.currentUser) return [];
-  
+
   const q = query(
-    collection(db, 'userActivities', auth.currentUser.uid, 'records'),
-    orderBy('timestamp', 'desc')
+    collection(db, "userActivities", auth.currentUser.uid, "records"),
+    orderBy("timestamp", "desc")
   );
-  
+
   const snapshot = await getDocs(q);
-  return snapshot.docs.map(doc => doc.data());
+  return snapshot.docs.map((doc) => doc.data());
 }
 
 // 处理数据用于图表显示
@@ -54,14 +54,14 @@ function processDataForChart(data) {
 
   return {
     labels: Object.keys(grouped),
-    data: Object.values(grouped)
+    data: Object.values(grouped),
   };
 }
 
 // 创建图表
 function createChart(processedData) {
-  const ctx = chartRef.value.getContext('2d');
-  
+  const ctx = chartRef.value.getContext("2d");
+
   if (myChart) {
     myChart.destroy();
   }
@@ -70,25 +70,27 @@ function createChart(processedData) {
     type: chartType.value,
     data: {
       labels: processedData.labels,
-      datasets: [{
-        label: 'Total Duration (minutes)',
-        data: processedData.data,
-        backgroundColor: [
-          'rgba(54, 162, 235, 0.5)',
-          'rgba(255, 99, 132, 0.5)',
-          'rgba(75, 192, 192, 0.5)',
-          'rgba(255, 206, 86, 0.5)',
-          'rgba(153, 102, 255, 0.5)',
-        ],
-        borderColor: [
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 99, 132, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(153, 102, 255, 1)',
-        ],
-        borderWidth: 1
-      }]
+      datasets: [
+        {
+          label: "Total Duration (minutes)",
+          data: processedData.data,
+          backgroundColor: [
+            "rgba(54, 162, 235, 0.5)",
+            "rgba(255, 99, 132, 0.5)",
+            "rgba(75, 192, 192, 0.5)",
+            "rgba(255, 206, 86, 0.5)",
+            "rgba(153, 102, 255, 0.5)",
+          ],
+          borderColor: [
+            "rgba(54, 162, 235, 1)",
+            "rgba(255, 99, 132, 1)",
+            "rgba(75, 192, 192, 1)",
+            "rgba(255, 206, 86, 1)",
+            "rgba(153, 102, 255, 1)",
+          ],
+          borderWidth: 1,
+        },
+      ],
     },
     options: {
       responsive: true,
@@ -97,11 +99,11 @@ function createChart(processedData) {
           beginAtZero: true,
           title: {
             display: true,
-            text: 'Duration (minutes)'
-          }
-        }
-      }
-    }
+            text: "Duration (minutes)",
+          },
+        },
+      },
+    },
   });
 }
 
